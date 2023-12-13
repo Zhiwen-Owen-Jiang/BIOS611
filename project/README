@@ -1,0 +1,9 @@
+## Introduction to my project
+The project is to investigate potential factors for quitting smoking and how quitting smoking affects weight gain.
+
+## How to build and start the docker container
+1. First download Dockerfile to a machine where docker has been installed.
+2. Run `build . -t owen_docker` to build a docker container called 'owen_docker'
+3. Run `docker run -e USER=bios611 -e PASSWORD=bios611 --rm -p 8787:8787 owen_docker` to start the docker container, then we can log into Rstudio using a local browser by searching localhost:8787 and using the username 'bios611' and password 'bios611'
+4. We can type 'library(ggplot2)' to check if the required library has been successfully downloaded.
+5. All required data and code can be downloaded from github repo and knit it we can generate a report
