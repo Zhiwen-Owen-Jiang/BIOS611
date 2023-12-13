@@ -1,2 +1,3 @@
 FROM rocker/verse
-RUN apt-get update && apt-get install -y man-db
+RUN R -e "install.packages(\"ggplot2\")"
+RUN R -e "install.packages(\"rmarkdown\")"
