@@ -53,7 +53,7 @@ ggplot(plot2_data, aes(y = wt, x = sex)) + geom_boxplot(fill = 'skyblue') + them
 ```
 
 
-### Analysis for reason of quitting smoking.
+### Analysis of quitting smoking.
 In this section, we explore the reason that people quit smoking by fitting a logistic model. We include sex, age, race, marital status, educational level, weight at baseline, smoking intensity, smoking years and frequency of drinking alcohol as potential factors. Sex, age, race, smoking intensity and smoking years are statistically significant factors, where stronger  smoking intensity keeps decreasing the probability of quitting smoking, while smoking years decrease the probability of quitting smoking at the beginning but increase it later.
 ```{r logistic}
 lg_model <- glm(qsmk ~ sex + age + race + marital + education + wt_bl + smokeintensity + smokeyrs + alcoholfreq, data = smk_raw)
@@ -62,12 +62,20 @@ plot3_data <- smk_raw[, c('smokeintensity', 'smokeyrs')]
 plot3_data$prob <- lg_model$fitted.values
 
 ggplot(plot3_data, aes(x = smokeintensity, y = prob)) + geom_point(size = 0.5, alpha = 0.5) +
-  geom_smooth(method = "loess") + xlab('Smoking intensity') + ylab('Probability of quitting smoking') +
-  theme_bw()
+  geom_smooth(method = "loess") + xlab('Smoking intensity') + ylab('Probability of quitting smoking') + theme_bw()
 ggplot(plot3_data, aes(x = smokeyrs, y = prob)) + geom_point(size = 0.5, alpha = 0.5) +
-  geom_smooth(method = "loess") + + xlab('Smoking years') + ylab('Probability of quitting smoking') +
-  theme_bw()
+  geom_smooth(method = "loess") + xlab('Smoking years') + ylab('Probability of quitting smoking') + theme_bw()
 ```
+
+### Analysis of weight change
+In this section, we explore the risk factors contributing to weight change. We use a linear model with covariates quitting smoking, sex, age, race, marital status, educational level, weight at baseline, smoking intensity, smoking years and frequency of drinking alcohol. Without surprise, quitting smoking is the most important factor for weight gain, and the average contribution is $3.33$ kg.
+```{r}
+lm_model <- lm(wt_chg ~ qsmk + sex + age + race + marital + education + wt_bl + smokeintensity + smokeyrs + alcoholfreq, data = smk_raw)
+summary(lm_model)
+```
+
+
+In this project, we investigated the factors that affect people quitting smoking and how quitting smoking can help people gain weight. We found an interesting relationship between quitting smoking and the smoking years. These results may be helpful for future clinical studies.
 
 
 
